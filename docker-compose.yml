@@ -1,0 +1,38 @@
+version: '3'
+services: 
+  mysqlnode:
+    image: mysqlnode
+    build: ./mysqlnode
+    container_name: "mysqlnode"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=flownet
+    volumes:
+      - /opt/mysql/logs/:/opt/mysql/logs 
+      - /opt/mysql/data:/var/lib/mysql    
+    ports:
+      - 3306:3306  
+    networks:
+     - flownet
+     
+       
+  phpmyadmin:
+   image: phpmyadmin/phpmyadmin
+   container_name: "phpmyadmin"
+   links:
+    - mysqlnode
+   ports:
+     - 9191:80
+   environment:
+     MYSQL_USERNAME: root
+     MYSQL_ROOT_PASSWORD: root
+     PMA_HOST: mysqlnode
+   networks:
+     - flownet
+
+  
+networks:
+  flownet:
+    driver: bridge
