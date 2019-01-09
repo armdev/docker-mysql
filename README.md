@@ -1,4 +1,4 @@
-# docker-mysql-phpmadmin
+# docker-mysql-phpmyadmin
 run mysql with docker compose and phpmyadmin
 
 #Run
